@@ -1,4 +1,4 @@
-export interface Verse {
+export interface VerseType {
   id: number,
   book: string,
   chapter: number,

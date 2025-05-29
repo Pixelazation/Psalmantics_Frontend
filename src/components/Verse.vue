@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import type { Verse } from '../types/verse';
+  import type { VerseType } from '../types/verse';
 
   const props = defineProps<{
-    verse: Verse
+    verse: VerseType
   }>()
 
   const { book, chapter, verse, text, similarity } = props.verse
