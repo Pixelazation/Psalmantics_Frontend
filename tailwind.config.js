@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [],
+  content: [
+    './index.html',
+    './src/**/*.{vue,js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {
       colors: {
@@ -8,12 +11,10 @@ export default {
         red: "#7E0021",
         green: "#314004"
       },
-      fontFamily: {
-        bookman: ['"Libre Baskerville"', 'Georgia', 'serif'],
-      },
     },
     fontFamily: {
-      Roboto: "Roboto",
+      roboto: "Roboto",
+      bookman: ['"Libre Baskerville"', 'Georgia', 'serif'],
     },
     container: {
       center: true,
