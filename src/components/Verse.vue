@@ -19,9 +19,10 @@
 
 <style lang="css" scoped>
   div {
-    max-width: 256px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
     color: white;
     /* background-color: #7E0021; */
@@ -33,7 +34,7 @@
     padding: 8px;
     font-size: large;
     font-weight: bold;
-    box-shadow: 5px 10px 24px black;
+    box-shadow: 3px 6px 32px black;
   }
 
   p {
@@ -41,13 +42,13 @@
     display: flex;
     flex-grow: 1;
     background-color: #7E0021;
-    box-shadow: 5px 10px 24px black;
+    box-shadow: 3px 6px 32px black;
   }
 
   span {
     padding: 8px;
     display: flex;
     background-color: #CC9900;
-    box-shadow: 5px 10px 24px black;
+    box-shadow: 3px 6px 32px black;
   }
 </style>

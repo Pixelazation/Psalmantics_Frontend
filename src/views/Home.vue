@@ -7,11 +7,13 @@ import type { VerseType } from '../types/verse'
 import { searchVerses } from '../services/search'
 
 const query = ref('')
+const searchInput = ref<HTMLInputElement | null>(null)
+const loadingStatus = ref<number>(0)
 
 const testament = ref<string>("")
 const book = ref<string|null>(null)
 const chapter = ref<number | null>(null)
-const items = ref<number>(10)
+const items = ref<number>(8)
 
 const verseList = ref<VerseType[]>([])
 
@@ -24,7 +26,10 @@ async function searchQuery() {
     items: items.value
   }
 
+  searchInput.value?.blur();
+  loadingStatus.value = 1;
   verseList.value = await searchVerses(query.value, filters);
+  loadingStatus.value = 2;
 }
 
 </script>
@@ -33,7 +38,7 @@ async function searchQuery() {
   <Banner />
   <div id="search">
     <div>
-      <input id="search-box" type="text" v-model="query" placeholder="Search...">
+      <input id="search-box" ref="searchInput" type="text" v-model="query" placeholder="Search..." @keyup.enter="searchQuery">
       <button @click="searchQuery">
         Search
       </button>
@@ -57,9 +62,16 @@ async function searchQuery() {
     </div>
   </div>
   
-  <div class="verses">
-    <Verse v-for="verse in verseList" :key="verse.id" :verse="verse" />
+  <p class="placeholder" v-if="loadingStatus == 0">Start searching!</p>
+  <p class="placeholder" v-else-if="loadingStatus == 1">Loading...</p>
+
+  <div v-else-if="loadingStatus == 2">
+    <div v-if="verseList.length > 0" class="verses">
+      <Verse v-for="verse in verseList" :key="verse.id" :verse="verse" />
+    </div>
+    <p class="placeholder" v-else>No results found</p>
   </div>
+  
 </template>
 
 <style lang="css" scoped>
@@ -142,5 +154,10 @@ async function searchQuery() {
     gap: 16px;
     justify-content: center;
     padding: 16px;
+  }
+
+  .placeholder {
+    margin: 0 auto;
+    text-align: center;
   }
 </style>
