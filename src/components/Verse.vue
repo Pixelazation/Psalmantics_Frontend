@@ -13,6 +13,7 @@
   <div>
     <h2>{{ book }} {{ chapter }}:{{ verse }}</h2>
     <p>{{ text }}</p>
+    <span>Similarity: {{ similarity.toFixed(5) }}</span>
   </div>
 </template>
 
@@ -40,6 +41,13 @@
     display: flex;
     flex-grow: 1;
     background-color: #7E0021;
+    box-shadow: 5px 10px 24px black;
+  }
+
+  span {
+    padding: 8px;
+    display: flex;
+    background-color: #CC9900;
     box-shadow: 5px 10px 24px black;
   }
 </style>
