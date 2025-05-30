@@ -45,7 +45,7 @@ async function searchQuery() {
       </button>
     </div>
     <div>
-      <span>Filters: </span>
+      <label>Filters: </label>
 
       <select v-model="testament">
         <option value="">All Testaments</option>
@@ -77,10 +77,14 @@ async function searchQuery() {
 
 <style lang="css" scoped>
   #search {
-    margin: 16px;
+    width: fit-content;
+    padding: 16px;
+    margin: 16px auto;
     display: flex;
     gap: 16px;
     flex-direction: column;
+    background-color: #7E0021;
+    border-radius: 16px;
   }
 
   #search div {
@@ -121,6 +125,10 @@ async function searchQuery() {
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 16px;
     box-sizing: border-box;
+  }
+
+  label {
+    color: white;
   }
 
   #item-count {
