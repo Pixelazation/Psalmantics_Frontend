@@ -8,11 +8,23 @@ import { searchVerses } from '../services/search'
 
 const query = ref('')
 
+const testament = ref<string>("")
+const book = ref<string|null>(null)
+const chapter = ref<number | null>(null)
+const items = ref<number>(10)
+
 const verseList = ref<VerseType[]>([])
 
 async function searchQuery() {
   console.log(query.value);
-  verseList.value = await searchVerses(query.value);
+  const filters = {
+    testament: testament.value,
+    book: book.value,
+    chapter: chapter.value,
+    items: items.value
+  }
+
+  verseList.value = await searchVerses(query.value, filters);
 }
 
 </script>
@@ -21,10 +33,27 @@ async function searchQuery() {
   <Banner />
   <div id="search">
     <div>
-      <input type="text" v-model="query">
+      <input id="search-box" type="text" v-model="query" placeholder="Search...">
       <button @click="searchQuery">
         Search
       </button>
+    </div>
+    <div>
+      <span>Filters: </span>
+
+      <select v-model="testament">
+        <option value="">All Testaments</option>
+        <option value="OT">Old Testament</option>
+        <option value="NT">New Testament</option>
+      </select>
+
+      <!-- <input type="text" v-model="book" placeholder="Book (optional)" />
+
+      <label>Chapter: </label>
+      <input type="number" v-model.number="chapter" placeholder="(optional)" min="1" /> -->
+
+      <label>Items: </label>
+      <input id="item-count" type="number" v-model.number="items" placeholder="Items" min="1" />
     </div>
   </div>
   
@@ -36,18 +65,28 @@ async function searchQuery() {
 <style lang="css" scoped>
   #search {
     margin: 16px;
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
   }
 
   #search div {
-    width: fit-content;
+    width: 100%;              
+    max-width: 800px; 
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
     gap: 16px;
-    align-content: center;
+    align-items: center;
+  }
+
+  #search span {
+    height: fit-content;
   }
 
   input[type="text"] {
+    flex: 1;             
+    min-width: 0;             
     padding: 8px 12px;
     border: 1px solid #b8ae9c;
     border-radius: 4px;
@@ -55,9 +94,28 @@ async function searchQuery() {
     color: #3a2e1e;
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 16px;
-    width: 100%;
-    max-width: 400px;
     box-sizing: border-box;
+  }
+
+  select,
+  input[type="number"] {
+    padding: 8px 12px;
+    flex: 1;
+    border: 1px solid #b8ae9c;
+    border-radius: 4px;
+    background-color: #fffdf7;
+    color: #3a2e1e;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+
+  #item-count {
+    width: 64px;
+  }
+
+  select {
+    appearance: none;
   }
 
   button {
@@ -77,6 +135,8 @@ async function searchQuery() {
   }
 
   .verses {
+    width: 75%;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
     gap: 16px;

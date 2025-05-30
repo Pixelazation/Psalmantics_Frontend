@@ -20,9 +20,11 @@
   div {
     max-width: 256px;
     margin: 0 auto;
-    box-shadow: 5px 10px 10px black;
+    display: flex;
+    flex-direction: column;
     color: white;
-    background-color: #7E0021;
+    /* background-color: #7E0021; */
+    gap: 4px;
   }
 
   h2 {
@@ -30,9 +32,14 @@
     padding: 8px;
     font-size: large;
     font-weight: bold;
+    box-shadow: 5px 10px 24px black;
   }
 
   p {
     padding: 8px;
+    display: flex;
+    flex-grow: 1;
+    background-color: #7E0021;
+    box-shadow: 5px 10px 24px black;
   }
 </style>
