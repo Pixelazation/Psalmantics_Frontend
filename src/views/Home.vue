@@ -5,6 +5,7 @@ import Verse from '../components/Verse.vue'
 import { ref } from 'vue'
 import type { VerseType } from '../types/verse'
 import { searchVerses } from '../services/search'
+import Loader from '../components/Loader.vue'
 
 const query = ref('')
 const searchInput = ref<HTMLInputElement | null>(null)
@@ -63,7 +64,7 @@ async function searchQuery() {
   </div>
   
   <p class="placeholder" v-if="loadingStatus == 0">Start searching!</p>
-  <p class="placeholder" v-else-if="loadingStatus == 1">Loading...</p>
+  <Loader class="placeholder" style="margin-top: 32px;" v-else-if="loadingStatus == 1" />
 
   <div v-else-if="loadingStatus == 2">
     <div v-if="verseList.length > 0" class="verses">
